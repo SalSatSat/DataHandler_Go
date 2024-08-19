@@ -18,7 +18,11 @@ func main() {
 
 	// Use middlewares
 	app.Use(requestid.New())
-	app.Use(logger.New())
+	app.Use(logger.New(logger.Config{
+		Format:     "${time} | ${status} | ${latency} | ${ip} | ${method} | ${path} | ${ua} | ${locals:requestid} | ${bytesSent}B\n",
+		TimeFormat: "15:04:05",
+		TimeZone:   "Local",
+	}))
 	app.Use(recover.New())
 
 	app.Get("/", func(c *fiber.Ctx) error {
