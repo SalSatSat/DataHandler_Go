@@ -10,6 +10,8 @@ services:
     volumes:
       - .:/app
     command: go run main.go -b 0.0.0.0
+    depends_on:
+      - postgres-db
   postgres-db:
     image: postgres:alpine
     environment:
