@@ -1,7 +1,9 @@
 package main
 
 import (
+	"datahandler_go/database/postgres"
 	"datahandler_go/helpers"
+	"datahandler_go/models/samples"
 	"fmt"
 	"log"
 
@@ -13,6 +15,15 @@ import (
 
 func main() {
 	port := helpers.EnvVariable("PORT")
+
+	postgres.ConnectDb()
+	postgres.DB.Db.AutoMigrate(&samples.Postgres_Sample{})
+
+	if postgres.IsDbConnected() {
+		fmt.Printf("Postgres successfully connected\n")
+	} else {
+		fmt.Printf("Postgres failed to connect\n")
+	}
 
 	app := fiber.New()
 
