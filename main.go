@@ -4,6 +4,7 @@ import (
 	"datahandler_go/database/postgres"
 	"datahandler_go/helpers"
 	"datahandler_go/models/samples"
+	"datahandler_go/routes"
 	"fmt"
 	"log"
 
@@ -36,15 +37,7 @@ func main() {
 	}))
 	app.Use(recover.New())
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		// Create a map to hold the JSON data with a status code
-		response := map[string]interface{}{
-			"message":     "Hello, World!",
-			"status_code": fiber.StatusOK, // Use Fiber's built-in status code
-		}
-		// Send the JSON response
-		return c.JSON(response)
-	})
+	routes.SetupRoutes(app)
 
 	fmt.Printf("Server listening on port %s\n", port)
 	log.Fatal(app.Listen(":" + port))
