@@ -10,3 +10,16 @@ services:
     volumes:
       - .:/app
     command: go run main.go -b 0.0.0.0
+  postgres-db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_DB_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_DB_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB_NAME}
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+volumes:
+  postgres-db:
