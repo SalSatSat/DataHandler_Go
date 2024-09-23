@@ -1,6 +1,7 @@
 package main
 
 import (
+	"datahandler_go/database/mongo"
 	"datahandler_go/database/postgres"
 	"datahandler_go/helpers"
 	"datahandler_go/models/samples"
@@ -24,6 +25,14 @@ func main() {
 		fmt.Printf("Postgres successfully connected\n")
 	} else {
 		fmt.Printf("Postgres failed to connect\n")
+	}
+
+	mongo.ConnectDb()
+
+	if mongo.IsDbConnected() {
+		fmt.Printf("Mongo successfully connected\n")
+	} else {
+		fmt.Printf("Mongo failed to connect\n")
 	}
 
 	app := fiber.New()
