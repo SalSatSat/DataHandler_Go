@@ -4,7 +4,6 @@ import (
 	"datahandler_go/helpers"
 	"fmt"
 	"log"
-	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -34,7 +33,6 @@ func ConnectDb() {
 
 	if err != nil {
 		log.Fatal("Failed to connect to database. \n", err)
-		os.Exit(2)
 	}
 
 	DB = Dbinstance{
