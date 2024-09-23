@@ -12,6 +12,7 @@ services:
     command: go run main.go -b 0.0.0.0
     depends_on:
       - postgres-db
+      - mongo-db
   postgres-db:
     image: postgres:alpine
     environment:
