@@ -12,7 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
-var client *mongo.Client
+var Client *mongo.Client
 
 func ConnectDb() {
 	if IsDbConnected() {
@@ -32,7 +32,7 @@ func ConnectDb() {
 		helpers.EnvVariable("MONGO_HOST"),
 		helpers.EnvVariable("MONGO_PORT"),
 		helpers.EnvVariable("MONGO_DB_NAME"))
-	client, err = mongo.Connect(ctx, options.Client().
+	Client, err = mongo.Connect(ctx, options.Client().
 		ApplyURI(uri).
 		SetMaxPoolSize(1).
 		SetSocketTimeout(60*time.Second))
@@ -50,7 +50,7 @@ func DisconnectDb() {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	err := client.Disconnect(ctx)
+	err := Client.Disconnect(ctx)
 	if err != nil {
 		log.Println("Error closing database connection:", err)
 	} else {
@@ -59,7 +59,7 @@ func DisconnectDb() {
 }
 
 func IsDbConnected() bool {
-	if client == nil {
+	if Client == nil {
 		return false
 	}
 
@@ -67,6 +67,6 @@ func IsDbConnected() bool {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	err := client.Ping(ctx, readpref.Primary())
+	err := Client.Ping(ctx, readpref.Primary())
 	return err == nil
 }
