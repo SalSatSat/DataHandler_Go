@@ -2,10 +2,11 @@ package main
 
 import (
 	"datahandler_go/helpers"
-	"datahandler_go/models/samples"
+	"datahandler_go/jobs"
 	"datahandler_go/routes"
 	"fmt"
 	"log"
+	"sync"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -28,6 +29,16 @@ func main() {
 	app.Use(recover.New())
 
 	routes.SetupRoutes(app)
+
+	// WaitGroup to wait for goroutines to finish
+	var wg sync.WaitGroup
+
+	// Start jobs in a separate goroutine
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		jobs.Jobs() // Start running jobs
+	}()
 
 	fmt.Printf("Server listening on port %s\n", port)
 	log.Fatal(app.Listen(":" + port))
