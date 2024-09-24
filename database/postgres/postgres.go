@@ -32,7 +32,7 @@ func ConnectDb() {
 	})
 
 	if err != nil {
-		log.Fatal("Failed to connect to database. \n", err)
+		log.Fatal("Failed to connect to Postgres database. \n", err)
 	}
 
 	DB = Dbinstance{
@@ -51,7 +51,7 @@ func DisconnectDb() {
 	if err != nil {
 		log.Println("Error closing database connection:", err)
 	} else {
-		log.Println("Database connection closed successfully.")
+		log.Println("Postgres database connection closed successfully.")
 	}
 }
 
@@ -64,7 +64,7 @@ func IsDbConnected() bool {
 
 	err = sqlDB.Ping()
 	if err != nil {
-		log.Println("Database connection is not healthy:", err)
+		log.Println("Postgres database connection is not healthy:", err)
 		return false
 	}
 

@@ -38,7 +38,7 @@ func ConnectDb() {
 		SetSocketTimeout(60*time.Second))
 
 	if err != nil {
-		log.Fatal("Failed to connect to database. \n", err)
+		log.Fatal("Failed to connect to Mongo database. \n", err)
 	}
 }
 
@@ -52,9 +52,9 @@ func DisconnectDb() {
 
 	err := Client.Disconnect(ctx)
 	if err != nil {
-		log.Println("Error closing database connection:", err)
+		log.Println("Error closing Mongo database connection:", err)
 	} else {
-		log.Println("Database connection closed successfully.")
+		log.Println("Mongo database connection closed successfully.")
 	}
 }
 
