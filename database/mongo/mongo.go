@@ -26,9 +26,10 @@ func ConnectDb() {
 
 	var err error
 	// Use mongo-db instead of localhost because this application is running within Docker
-	uri := fmt.Sprintf("mongodb://%s:%s@mongo-db:%s/%s?authSource=admin",
+	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s/%s?authSource=admin",
 		helpers.EnvVariable("MONGO_DB_USER"),
 		helpers.EnvVariable("MONGO_DB_PASSWORD"),
+		helpers.EnvVariable("MONGO_HOST"),
 		helpers.EnvVariable("MONGO_PORT"),
 		helpers.EnvVariable("MONGO_DB_NAME"))
 	client, err = mongo.Connect(ctx, options.Client().

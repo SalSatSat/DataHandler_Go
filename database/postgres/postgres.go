@@ -19,7 +19,7 @@ var DB Dbinstance
 func ConnectDb() {
 	dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=%s",
-		"postgres-db", // Use the Docker service name
+		helpers.EnvVariable("POSTGRES_HOST"),
 		helpers.EnvVariable("POSTGRES_DB_USER"),
 		helpers.EnvVariable("POSTGRES_DB_PASSWORD"),
 		helpers.EnvVariable("POSTGRES_DB_NAME"),
