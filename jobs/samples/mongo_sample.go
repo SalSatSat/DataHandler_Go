@@ -61,7 +61,7 @@ func Mongo_Sample_Job() {
 		// Create sample data
 		records := createSampleData()
 
-		// Upsert sample data into the collection
+		// Upsert sample record into the collection
 		for _, record := range records {
 			filter := bson.M{"label": record.Label} // Unique filter based on Label
 			update := bson.M{
@@ -77,8 +77,6 @@ func Mongo_Sample_Job() {
 
 			if err != nil {
 				if err == mongoDriver.ErrNoDocuments {
-					// Document was not found, but we used upsert, so no error
-					// You may log that the document was created if needed
 					log.Printf("Inserted new document: %+v\n", record)
 				} else {
 					log.Fatal(err)
@@ -89,7 +87,7 @@ func Mongo_Sample_Job() {
 		}
 
 		jobTime := time.Since(startTime).Seconds()
-		log.Printf("mongo_sample job complete in %.2f seconds.\n", jobTime)
+		log.Printf("mongo_sample job completed in %.2f seconds.\n", jobTime)
 	} else {
 		log.Println("Mongo failed to connect")
 	}
