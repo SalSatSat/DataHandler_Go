@@ -37,7 +37,7 @@ func main() {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		jobs.Jobs() // Start running jobs
+		jobs.RunJobs() // Start running jobs
 	}()
 
 	fmt.Printf("Server listening on port %s\n", port)
