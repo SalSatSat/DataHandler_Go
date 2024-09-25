@@ -62,6 +62,7 @@ func DisconnectDb() {
 
 func IsDbConnected() bool {
 	if Client == nil {
+		log.Println("No Mongo client instance.")
 		return false
 	}
 
@@ -72,5 +73,10 @@ func IsDbConnected() bool {
 
 	// Check MongoDB connection by pinging the server
 	err := Client.Ping(ctx, readpref.Primary())
-	return err == nil
+	if err != nil {
+		log.Println("Mongo database connection is not healthy:", err)
+		return false
+	}
+
+	return true
 }
