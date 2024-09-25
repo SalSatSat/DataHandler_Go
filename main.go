@@ -6,7 +6,6 @@ import (
 	"datahandler_go/routes"
 	"fmt"
 	"log"
-	"sync"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -30,15 +29,7 @@ func main() {
 
 	routes.SetupRoutes(app)
 
-	// WaitGroup to wait for goroutines to finish
-	var wg sync.WaitGroup
-
-	// Start jobs in a separate goroutine
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		jobs.RunJobs() // Start running jobs
-	}()
+	go jobs.RunJobs()
 
 	fmt.Printf("Server listening on port %s\n", port)
 	log.Fatal(app.Listen(":" + port))
