@@ -36,7 +36,7 @@ func Postgres_Sample_Job() {
 	startTime := time.Now()
 	log.Println("Starting postgres_sample job...")
 
-	// Connect to PostgreSQL and fetch data
+	// Connect to PostgreSQ
 	postgres.ConnectDb()
 	defer postgres.DisconnectDb()
 
@@ -85,8 +85,6 @@ func Postgres_Sample_Job() {
 
 			if err != nil {
 				if err == mongoDriver.ErrNoDocuments {
-					// Document was not found, but we used upsert, so no error
-					// You may log that the document was created if needed
 					log.Printf("Inserted new document: %+v\n", record)
 				} else {
 					log.Fatal(err)
