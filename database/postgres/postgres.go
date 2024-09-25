@@ -17,6 +17,7 @@ type Dbinstance struct {
 var DB Dbinstance
 
 func ConnectDb() {
+	// Use postgres-db instead of localhost because this application is running within Docker
 	dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=%s",
 		helpers.EnvVariable("POSTGRES_HOST"),
