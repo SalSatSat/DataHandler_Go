@@ -20,7 +20,7 @@ func ConnectDb() {
 	}
 
 	// ctx will be used to set deadline for process, here
-	// deadline will of 30 seconds
+	// deadline will be 30 seconds
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
@@ -47,6 +47,8 @@ func DisconnectDb() {
 		return
 	}
 
+	// ctx will be used to set deadline for process, here
+	// deadline will be 30 seconds
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
@@ -63,10 +65,12 @@ func IsDbConnected() bool {
 		return false
 	}
 
-	// Check MongoDB connection by pinging the server
+	// ctx will be used to set deadline for process, here
+	// deadline will be 30 seconds
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
+	// Check MongoDB connection by pinging the server
 	err := Client.Ping(ctx, readpref.Primary())
 	return err == nil
 }
