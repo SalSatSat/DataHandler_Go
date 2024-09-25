@@ -9,6 +9,7 @@ import (
 )
 
 func Jobs() {
+func RunJobs() {
 	c := cron.New()
 
 	// Define job schedules with their corresponding functions
