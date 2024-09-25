@@ -71,7 +71,7 @@ func SetupRoutes(app *fiber.App) {
 		defer mongo.DisconnectDb()
 
 		if mongo.IsDbConnected() {
-			fmt.Printf("Mongo successfully connected\n")
+			log.Println("Mongo successfully connected")
 
 			collection := mongo.Client.Database(helpers.EnvVariable("MONGO_DB_NAME")).Collection(modelToQuery)
 
@@ -86,8 +86,7 @@ func SetupRoutes(app *fiber.App) {
 				if sort != "" {
 					findOptions.SetSort(bson.D{{Key: sort, Value: 1}}) // Only set sort if it's not empty
 				} else {
-					// Optionally log or handle the case where sort is empty
-					fmt.Println("Warning: sort parameter is empty; default sorting will be applied.")
+					log.Println("Warning: sort parameter is empty; default sorting will be applied.")
 				}
 
 				cursor, err := collection.Find(context.Background(), bson.M{}, findOptions)
