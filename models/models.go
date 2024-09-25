@@ -7,7 +7,6 @@ import (
 	"datahandler_go/models/samples"
 )
 
-// Model is a placeholder for the type of your models. Replace with actual type.
 type Model interface{}
 
 // Define the row data models
