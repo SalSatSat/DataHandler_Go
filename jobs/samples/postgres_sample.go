@@ -15,22 +15,6 @@ import (
 )
 
 var records []samples.Postgres_Sample
-var updates = make(map[int]bool)
-
-func tryEndJob(startTime time.Time) {
-	allUpdated := true
-	for _, updated := range updates {
-		if !updated {
-			allUpdated = false
-			break
-		}
-	}
-
-	if allUpdated {
-		jobTime := time.Since(startTime).Seconds()
-		log.Printf("postgres_sample job completed in %.2f seconds.\n", jobTime)
-	}
-}
 
 func Postgres_Sample_Job() {
 	startTime := time.Now()
@@ -90,12 +74,12 @@ func Postgres_Sample_Job() {
 					log.Fatal(err)
 				}
 			} else {
-				updates[int(record.ID)] = true
 				log.Printf("Updated document: %+v\n", updatedSample)
 			}
 		}
 
-		tryEndJob(startTime)
+		jobTime := time.Since(startTime).Seconds()
+		log.Printf("postgres_sample job completed in %.2f seconds.\n", jobTime)
 	} else {
 		log.Println("Mongo failed to connect")
 	}
